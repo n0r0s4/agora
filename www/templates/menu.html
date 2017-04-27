@@ -13,6 +13,12 @@
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
+    <div class="bar bar-subheader margin">
+      <div class="button-bar">
+        <a class="button button-positive">How it works</a>
+        <a class="button button-calm">Add a question</a>
+      </div>
+    </div>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
@@ -22,20 +28,20 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
+        <ion-item menu-close href="#/app/playlists">
+          MAIN PAGE
+        </ion-item>
         <ion-item menu-close ng-click="login()">
           LOGIN
         </ion-item>
-        <ion-item menu-close href="#/app/search">
+        <ion-item ng-show="!anonymous" menu-close href="#/app/search">
           MY ACCOUNT
         </ion-item>
-        <ion-item menu-close href="#/app/search">
+        <ion-item ng-show="anonymous" menu-close href="#/app/signin">
           SIGN UP
         </ion-item>
         <ion-item menu-close href="#/app/browse">
           TOPICS
-        </ion-item>
-        <ion-item menu-close href="#/app/playlists">
-          MAIN PAGE
         </ion-item>
       </ion-list>
     </ion-content>
