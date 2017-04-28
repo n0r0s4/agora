@@ -15,7 +15,7 @@
     </ion-nav-bar>
     <div class="bar bar-subheader margin">
       <div class="button-bar">
-        <a class="button button-positive">How it works</a>
+        <a class="button button-positive" ng-click="openModal(2);" >What's AGORA?</a>
         <a class="button button-calm">Add a question</a>
       </div>
     </div>
@@ -24,14 +24,15 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-stable">
-      <h1 class="title">Menu</h1>
+    <img src="images/logo.png">
     </ion-header-bar>
     <ion-content>
+
       <ion-list>
         <ion-item menu-close href="#/app/playlists">
           MAIN PAGE
         </ion-item>
-        <ion-item menu-close ng-click="login()">
+        <ion-item menu-close ng-click="openModal(1)">
           LOGIN
         </ion-item>
         <ion-item ng-show="!anonymous" menu-close href="#/app/search">
