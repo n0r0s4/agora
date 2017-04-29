@@ -162,8 +162,8 @@ class UserADO implements EntityInterfaceADO {
             print "Error connecting database: " . $e->getMessage() . " ";
             die();
         }
-        $cons = "insert into " . UserADO::$tableName . " (`userscore`,`firstname`,`lastname`,`email`,`password`,`postalcode`) values (?, ?, ?, ?, ?, ?)";
-        $arrayValues = [$user->getUserscore(), $user->getFirstname(), $user->getLastname(), $user->getEmail(), $user->getPassword(), $user->getPostalcode()];
+        $cons = "insert into " . UserADO::$tableName . " (`nickname`,`userscore`,`firstname`,`lastname`,`email`,`password`,`postalcode`) values (?, ?, ?, ?, ?, ?, ?)";
+        $arrayValues = [$user->getNickname(), $user->getUserscore(), $user->getFirstname(), $user->getLastname(), $user->getEmail(), sha1($user->getPassword()), $user->getPostalcode()];
         $nickname = $conn->executionInsert($cons, $arrayValues);
         $user->setNickname($nickname);
         return $user->getNickname();

@@ -7,7 +7,7 @@ starterApp.controller('PlaylistsCtrl', function($scope, accessService, $statePar
     true, "POST", {controllerType: 2, action: 10000, jsonData: ""});
 
     promise.then(function (outputData) {
-      alert("con done");
+      //alert("con done");
       if(outputData[0] === true) {
         console.log(outputData[1]);
         //console.log(outputData[1]);

@@ -24,7 +24,7 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-stable">
-    <img src="images/logo.png"/>
+    <img class="img-responsive" src="images/logo.png"/>
     </ion-header-bar>
     <ion-content>
 
@@ -35,10 +35,10 @@
         <ion-item menu-close ng-click="openModal(1)">
           LOGIN
         </ion-item>
-        <ion-item ng-show="!anonymous" menu-close href="#/app/search">
+        <ion-item ng-show="theuser.getNickname()!='john doe'" menu-close href="#/app/search">
           MY ACCOUNT
         </ion-item>
-        <ion-item ng-show="anonymous" menu-close href="#/app/signin">
+        <ion-item ng-show="theuser.getNickname()=='john doe'" menu-close href="#/app/signin">
           SIGN UP
         </ion-item>
         <ion-item menu-close href="#/app/browse">

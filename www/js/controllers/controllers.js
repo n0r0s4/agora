@@ -17,14 +17,19 @@ starterApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state)
 *////
   // Form data for the login modal
   $scope.loginData = {};
-  $scope.anonymous=true;
+  $scope.newUser = function(){
+    $scope.theuser=new User();
+    $scope.theuser.nickname="john doe";
+    $scope.theuser.password="nothing";
+  }
+
+  $scope.registered=0;
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
   });
-
 
 /****/
 $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -86,6 +91,7 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
     }, 1000);
   };
 
+$scope.newUser();
   /*if(localStorage.getItem("wizard")==undefined)
     localStorage.setItem("wizard", "done");
     openModal(1);*/

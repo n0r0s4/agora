@@ -2,15 +2,84 @@
   <ion-content>
     <h1>Singin</h1>
     <! --nickname firstname lastname email password postalcode -->
-    <ion-item>
-       <ion-label>Todo</ion-label>
-       <ion-input type="text" [(ngModel)]="todo.title" name="title"></ion-input>
-     </ion-item>
-     <ion-item>
-       <ion-label>Description</ion-label>
-       <ion-textarea [(ngModel)]="todo.description" name="description"></ion-textarea>
-     </ion-item>
-     <button ion-button type="submit" block>Add Todo</button>
+    <form name="registerForm" ng-submit="createUser()" novalidate>
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Nick</span>
+        <input name="nick" ng-model="user.nickname" ng-pattern="/[a-zA-Z]{3,15}/" required type="text" placeholder="JohnTheRipper">
+        <div ng-show="registerForm.nick.$error.pattern" style="color: red; font-size:75%">
+          <span class="help-block ">Please, insert a valid user nickname.</span>
+        </div>
+        <div ng-show="registerForm.nick.$error.required" class="advice" style="color: blue; font-size:75%">
+            <span class="help-block ">Nickname is required.</span>
+          </div>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Firstname</span>
+        <input name="firstname" ng-model="user.firstname" ng-pattern="/[a-zA-Z]{3,15}/" required type="text" placeholder="John">
+        <div ng-show="registerForm.firstname.$error.pattern" style="color: red; font-size:75%">
+          <span class="help-block ">Please, insert a valid firstname.</span>
+        </div>
+        <div ng-show="registerForm.firstname.$error.required" class="advice" style="color: blue; font-size:75%">
+            <span class="help-block ">Firstname is required.</span>
+          </div>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Lastname</span>
+        <input name="lastname" required ng-model="user.lastname" ng-pattern="/[a-zA-Z]{3,15}/" type="text" placeholder="Doe">
+        <div ng-show="registerForm.lastname.$error.pattern" style="color: red; font-size:75%">
+          <span class="help-block ">Please, insert a valid user lastname.</span>
+        </div>
+        <div ng-show="registerForm.lastname.$error.required" class="advice" style="color: blue; font-size:75%">
+            <span class="help-block ">Lastname is required.</span>
+          </div>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Email</span>
+        <input ng-pattern="/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" name="email" ng-model="user.email" required type="text" placeholder="john@doe.com">
+        <div ng-show="registerForm.email.$error.pattern" style="color: red; font-size:75%">
+          <span class="help-block ">Please, insert a valid email.</span>
+        </div>
+        <div ng-show="registerForm.email.$error.required" class="advice" style="color: blue; font-size:75%">
+            <span class="help-block ">Email is required.</span>
+          </div>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Postal code</span>
+        <input ng-pattern="/^[0-9]{5}$/" name="postalcode" required ng-model="user.postalcode" type="text" placeholder="12345">
+        <div ng-show="registerForm.postalcode.$error.pattern" style="color: red; font-size:75%">
+          <span class="help-block ">Please, insert a valid user postal code.</span>
+        </div>
+        <div ng-show="registerForm.postalcode.$error.required" class="advice" style="color: blue; font-size:75%">
+            <span class="help-block ">Postal code is required.</span>
+          </div>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Password</span>
+        <input name="password" ng-model="user.password" required type="password" placeholder="password">
+        <div ng-show="registerForm.password.$error.required" class="advice" style="color: blue; font-size:75%">
+            <span class="help-block ">Password is required.</span>
+          </div>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Repeat password</span>
+        <input ng-model="password2" type="password" placeholder="password">
+        <div ng-show="user.password!=password2" style="color: blue; font-size:75%">
+          <span class="help-block ">Check your password.</span>
+        </div>
+      </label>
+    </div>
+
+    <label class="item">
+      <button ng-disabled="registerForm.$invalid || user.password!=password2" class="button button-block button-balanced" type="submit">Register!</button>
+    </label>
+  </form>
 
     <!--form name="registerForm" ng-submit="registerForm.$valid"  novalidate>
 									<h3>Customer Data:</h3>

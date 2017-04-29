@@ -46,7 +46,7 @@ starterApp.config(function($stateProvider, $urlRouterProvider) {
     views: {
       'menuContent': {
         templateUrl: 'templates/signin.html',
-        controller: 'UserController'
+        controller: 'UserCtrl'
       }
     }
   })
