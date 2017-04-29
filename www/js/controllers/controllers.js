@@ -86,8 +86,11 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
     }, 1000);
   };
 
+  /*if(localStorage.getItem("wizard")==undefined)
+    localStorage.setItem("wizard", "done");
+    openModal(1);*/
 
-})
+}) //end controller
 
 
 

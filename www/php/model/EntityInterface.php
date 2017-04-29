@@ -1,6 +1,7 @@
 <?php
-interface EntityInterface
-{
-   
+
+interface EntityInterface {
+    
 }
+
 ?>

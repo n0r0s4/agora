@@ -1,6 +1,8 @@
 <?php
-interface ControllerInterface
-{
-    public function doAction();    
+
+interface ControllerInterface {
+
+    public function doAction();
 }
+
 ?>

@@ -13,3 +13,8 @@
   line-height: 0px;
   border: 1px solid #ddd;
 }
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
