@@ -1,4 +1,4 @@
-starterApp.controller('UserCtrl', function($scope, accessService, $stateParams, $state, $ionicPopup) {
+starterApp.controller('UserCtrl', function($scope, accessService, $stateParams, $state, $ionicPopup, $ionicHistory) {
 
   $scope.user = new User();
   /*$scope.user.construct(
@@ -38,7 +38,12 @@ $scope.createUser = function (){
         console.log(outputData[1]);
         //console.log(outputData[1]);
         //id,idUser,dateReview, rate,description
+        //deshabilitar botón back
+        $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
         $scope.showPopup("Wellcome!", "You have been registered succesfully!");
+        $scope.user=new User();
         /*for (var i = 0; i < outputData[1].length; i++) {
           var question = new Question();
           question.setIdQuestion(outputData[1][i].idquestion);
@@ -60,6 +65,7 @@ $scope.createUser = function (){
       }
     });
   }
+
 
     $scope.showPopup = function(header,msg) {
       var alertPopup = $ionicPopup.alert({
