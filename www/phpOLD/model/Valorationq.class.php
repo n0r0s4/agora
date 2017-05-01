@@ -7,27 +7,28 @@
  */
 require_once "EntityInterface.php";
 
-class Answer implements EntityInterface {
-    private $idanswer;
+class Valorationq implements EntityInterface {
+
+    private $idvalorationq;
     private $nickname;
     private $idquestion;
-    private $input;
+    private $valoration;
     private $date;
-    
-    //----------Data base Values---------------------------------------
-    private static $tableName = "answers";
-    private static $colNameIdanswer = "idanswer";
+
+     //----------Data base Values---------------------------------------
+    private static $tableName = "valorationq";
+    private static $colNameIdvalorationq = "idvalorationq";
     private static $colNameNickname = "nickname";
     private static $colNameIdquestion = "idquestion";
-    private static $colNameInput = "input";
+    private static $colNameValoration = "valoration";
     private static $colNameDate = "date";
-
+    
     public function __construct() {
         
     }
 
-    public function getIdanswer() {
-        return $this->idanswer;
+    public function getIdvalorationq() {
+        return $this->idvalorationq;
     }
 
     public function getNickname() {
@@ -38,16 +39,16 @@ class Answer implements EntityInterface {
         return $this->idquestion;
     }
 
-    public function getInput() {
-        return $this->input;
+    public function getValoration() {
+        return $this->valoration;
     }
 
     public function getDate() {
         return $this->date;
     }
 
-    public function setIdanswer($idanswer) {
-        $this->idanswer = $idanswer;
+    public function setIdvalorationq($idvalorationq) {
+        $this->idvalorationq = $idvalorationq;
     }
 
     public function setNickname($nickname) {
@@ -58,8 +59,8 @@ class Answer implements EntityInterface {
         $this->idquestion = $idquestion;
     }
 
-    public function setInput($input) {
-        $this->input = $input;
+    public function setValoration($valoration) {
+        $this->valoration = $valoration;
     }
 
     public function setDate($date) {
@@ -68,24 +69,24 @@ class Answer implements EntityInterface {
 
     public function getAll() {
         $data = array();
-        $data["idanswer"] = $this->idanswer;
+        $data["idvalorationq"] = $this->idvalorationq;
         $data["nickname"] = $this->nickname;
         $data["idquestion"] = $this->idquestion;
-        $data["input"] = $this->input;
+        $data["valoration"] = $this->valoration;
         $data["date"] = $this->date;
         return $data;
     }
 
-    public function setAll($idanswer, $nickname, $idquestion, $input, $date) {
-        $this->setIdanswer($idanswer);
-        $this->setInput($nickname);
+    public function setAll($idvalorationq, $nickname, $idquestion, $valoration, $date) {
+        $this->setIdvalorationq($idvalorationq);
+        $this->setValoration($nickname);
         $this->setIdquestion($idquestion);
-        $this->setInput($input);
+        $this->setValoration($valoration);
         $this->setDate($date);
     }
 
     /* public function toString() {
-      $toString = "Review[idanswer=" . $this->idanswer . "][nickname=" . $this->nickname . "][desciption=" . $this->nick . "]";
+      $toString = "Review[idvalorationq=" . $this->idvalorationq . "][nickname=" . $this->nickname . "][desciption=" . $this->nick . "]";
       return $toString;
       } */
 }

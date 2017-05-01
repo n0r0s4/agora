@@ -58,7 +58,7 @@ class QuestionControllerClass implements ControllerInterface {
                 $outPutData[0] = false;
                 $errors[] = "Sorry, there has been an error. Try later";
                 $outPutData[] = $errors;
-                error_log("Action not correct in FilmControllerClass, value: " . $this->getAction());
+                error_log("Action not correct in QuestionControllerClass, value: " . $this->getAction());
                 break;
         }
         return $outPutData;
@@ -108,7 +108,7 @@ class QuestionControllerClass implements ControllerInterface {
         $outPutData[] = true;
         foreach ($questionsArray as $questionObj) {
             $question = new Question();
-            $question->setAll($questionObj->nickname, $questionObj->topicname, $questionObj->input, $questionObj->date);
+            $question->setAll($questionObj->idquestion, $questionObj->nickname, $questionObj->topicname, $questionObj->input, $questionObj->date);
             QuestionADO::update($question);
         }
         return $outPutData;
@@ -121,7 +121,7 @@ class QuestionControllerClass implements ControllerInterface {
         $outPutData[] = true;
         foreach ($questionsArray as $questionObj) {
             $question = new Question();
-            $question->setAll($questionObj->nickname, $questionObj->topicname, $questionObj->input, $questionObj->date);
+            $question->setAll($questionObj->idquestion, $questionObj->nickname, $questionObj->topicname, $questionObj->input, $questionObj->date);
             QuestionADO::delete($question);
         }
         return $outPutData;
@@ -134,7 +134,7 @@ class QuestionControllerClass implements ControllerInterface {
         $outPutData[] = true;
         foreach ($questionsArray as $questionObj) {
             $question = new Question();
-            $question->setAll($questionObj->nickname, $questionObj->topicname, $questionObj->input, $questionObj->date);
+            $question->setAll($questionObj->idquestion, $questionObj->nickname, $questionObj->topicname, $questionObj->input, $questionObj->date);
             QuestionADO::findByPK($question);
         }
         return $outPutData;

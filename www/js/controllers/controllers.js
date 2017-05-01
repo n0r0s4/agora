@@ -1,6 +1,6 @@
 
 
-starterApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state) {
+starterApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, accessService, $ionicPopup, $ionicHistory) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -19,7 +19,8 @@ starterApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state)
   $scope.loginData = {};
   $scope.newUser = function(){
     $scope.theuser=new User();
-    $scope.theuser.nickname="john doe";
+    $scope.theusertologin= new User();
+    $scope.theuser.nickname="anonymous";
     $scope.theuser.password="nothing";
   }
 
@@ -82,19 +83,71 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
 /***/
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+    console.log($scope.theusertologin);
+    $scope.theusertologin= angular.copy($scope.theusertologin);
+    var promise = accessService.getData("php/controllers/MainController.php",
+    true, "POST", {controllerType: 0, action: 10000, jsonData: JSON.stringify($scope.theusertologin)});
+
+    promise.then(function (outputData) {
+      console.log(outputData);
+      if(outputData[0] === true) {
+        console.log(outputData[1]);
+        //console.log(outputData[1]);
+        //id,idUser,dateReview, rate,description
+        //deshabilitar botón back
+        /*$ionicHistory.nextViewOptions({
+            disableBack: true
+          });*/
+        //$scope.showPopup("Login succesfull", "its working!");
+        $scope.theuser.nickname=outputData[1][0].nickname;
+        $scope.theuser.email=outputData[1][0].email;
+        $scope.theuser.postalcode=outputData[1][0].postalcode;
+        $scope.theuser.userscore=outputData[1][0].userscore;
+        $scope.theuser.firstname=outputData[1][0].firstname;
+        $scope.theuser.lastname=outputData[1][0].lastname;
+        $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+        $state.go('app.playlists');
+        $scope.closeModal(1);
+        //alert($scope.theuser.email);
+
+      }
+      else {
+          $scope.showPopup("Login FAILED", "Incorrect user and or password!");
+        if(angular.isArray(outputData[1])) {
+          //alert(outputData[1]);
+        }
+        else {
+          alert("There has been an error in the server, try later");
+        }
+      }
+    });
   };
-
+  $scope.logout = function(){
+    $scope.newUser();
+    $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+    $state.go('app.playlists');
+    $scope.openModal(1);
+  }
 $scope.newUser();
   /*if(localStorage.getItem("wizard")==undefined)
     localStorage.setItem("wizard", "done");
     openModal(1);*/
+
+    $scope.showPopup = function(header,msg) {
+      var alertPopup = $ionicPopup.alert({
+        title: header ,
+        template: msg
+      });
+      alertPopup.then(function(res) {
+        //$state.go('app.playlists');
+        //$scope.$parent.openModal(1);
+      });
+    };
 
 }) //end controller
 

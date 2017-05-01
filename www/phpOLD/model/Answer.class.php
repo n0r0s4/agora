@@ -8,6 +8,7 @@
 require_once "EntityInterface.php";
 
 class Answer implements EntityInterface {
+
     private $idanswer;
     private $nickname;
     private $idquestion;

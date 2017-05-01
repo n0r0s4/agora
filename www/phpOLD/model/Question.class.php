@@ -7,35 +7,35 @@
  */
 require_once "EntityInterface.php";
 
-class Answer implements EntityInterface {
-    private $idanswer;
-    private $nickname;
+class Question implements EntityInterface {
     private $idquestion;
+    private $nickname;
+    private $topicname;
     private $input;
     private $date;
-    
+
     //----------Data base Values---------------------------------------
-    private static $tableName = "answers";
-    private static $colNameIdanswer = "idanswer";
-    private static $colNameNickname = "nickname";
+    private static $tableName = "questions";
     private static $colNameIdquestion = "idquestion";
+    private static $colNameNickname = "nickname";
+    private static $colNameTopicname = "topicname";
     private static $colNameInput = "input";
     private static $colNameDate = "date";
-
+    
     public function __construct() {
         
     }
 
-    public function getIdanswer() {
-        return $this->idanswer;
+    public function getIdquestion() {
+        return $this->idquestion;
     }
 
     public function getNickname() {
         return $this->nickname;
     }
 
-    public function getIdquestion() {
-        return $this->idquestion;
+    public function getTopicname() {
+        return $this->topicname;
     }
 
     public function getInput() {
@@ -46,16 +46,16 @@ class Answer implements EntityInterface {
         return $this->date;
     }
 
-    public function setIdanswer($idanswer) {
-        $this->idanswer = $idanswer;
+    public function setIdquestion($idquestion) {
+        $this->idquestion = $idquestion;
     }
 
     public function setNickname($nickname) {
         $this->nickname = $nickname;
     }
 
-    public function setIdquestion($idquestion) {
-        $this->idquestion = $idquestion;
+    public function setTopicname($topicname) {
+        $this->topicname = $topicname;
     }
 
     public function setInput($input) {
@@ -68,24 +68,24 @@ class Answer implements EntityInterface {
 
     public function getAll() {
         $data = array();
-        $data["idanswer"] = $this->idanswer;
-        $data["nickname"] = $this->nickname;
         $data["idquestion"] = $this->idquestion;
+        $data["nickname"] = $this->nickname;
+        $data["topicname"] = $this->topicname;
         $data["input"] = $this->input;
         $data["date"] = $this->date;
         return $data;
     }
 
-    public function setAll($idanswer, $nickname, $idquestion, $input, $date) {
-        $this->setIdanswer($idanswer);
-        $this->setInput($nickname);
+    public function setAll($idquestion, $nickname, $topicname, $input, $date) {
         $this->setIdquestion($idquestion);
+        $this->setInput($nickname);
+        $this->setTopicname($topicname);
         $this->setInput($input);
         $this->setDate($date);
     }
 
     /* public function toString() {
-      $toString = "Review[idanswer=" . $this->idanswer . "][nickname=" . $this->nickname . "][desciption=" . $this->nick . "]";
+      $toString = "Review[idquestion=" . $this->idquestion . "][nickname=" . $this->nickname . "][desciption=" . $this->nick . "]";
       return $toString;
       } */
 }
