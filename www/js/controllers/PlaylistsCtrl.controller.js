@@ -14,9 +14,9 @@ starterApp.controller('PlaylistsCtrl', function($scope, accessService, $statePar
         //id,idUser,dateReview, rate,description
         for (var i = 0; i < outputData[1].length; i++) {
           var question = new Question();
-          question.setIdQuestion(outputData[1][i].idquestion);
-          question.setNick(outputData[1][i].nickname);
-          question.setTopicName(outputData[1][i].topicname);
+          question.setIdquestion(outputData[1][i].idquestion);
+          question.setNickname(outputData[1][i].nickname);
+          question.setTopicname(outputData[1][i].topicname);
           question.setInput(outputData[1][i].input);
           question.setDateIn(outputData[1][i].date);
           $scope.questions.push(question);
