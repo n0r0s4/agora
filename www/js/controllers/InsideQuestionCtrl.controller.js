@@ -1,18 +1,12 @@
-starterApp.controller('PlaylistsCtrl', function($scope, accessService, $stateParams, $state) {
-  $scope.questions =[];
-  $scope.insider;
-  $scope.insideQuestion = function(question){
-    console.log(question);
-    $scope.$parent.insiderDaddy=question;
-    //idquestion,nickname,topicname, input,dateIn
-    /*$scope.insider.construct(question.idquestion, question.nickname, question.topicname, question.input, question.dateIn);
-    alert($scope.insider.question.idquestion);
-    /*console.log($scope.insider);*/
-    $state.go('app.single');
+starterApp.controller('InsideQuestionCtrl', function($scope, accessService, $stateParams, $state) {
+  $scope.inQuestion;
+  $scope.allAnswers;
+  function inQuestion(){
+    $scope.inQuestion=$scope.$parent.insiderDaddy;
   }
-  
-  $scope.loadInitData = function (){
+   function loadAnswers(){
     //Server conenction to verify user's data
+    $scope.gimmeAnswers=angular.copy($scope.inQuestion);
     var promise = accessService.getData("php/controllers/MainController.php",
     true, "POST", {controllerType: 2, action: 10000, jsonData: ""});
 
@@ -43,5 +37,6 @@ starterApp.controller('PlaylistsCtrl', function($scope, accessService, $statePar
       }
     });
   }
-    $scope.loadInitData();
+  inQuestion();
+  loadAnswers();
 });

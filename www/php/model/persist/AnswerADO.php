@@ -146,7 +146,7 @@ class AnswerADO implements EntityInterface {
             print "Error connecting database: " . $e->getMessage() . " ";
             die();
         }
-        
+
         $cons = "insert into " . AnswerADO::$tableAnswers . " (`nickname`,`idquestion`,`input`,`date`) values (?, ?, ?, ?)";
         $arrayValues = [ $review->getNickname(), $review->getIdquestion(), $review->getInput(), new Date()];
         $id = $conn->executionInsert($cons, $arrayValues);
