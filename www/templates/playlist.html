@@ -1,5 +1,21 @@
-<ion-view view-title="Playlist">
+<ion-view>
+  <ion-nav-title>
+    <h2>Question {{inQuestion.idquestion}}</h2>
+</ion-nav-title>
   <ion-content>
-    <h1>Playlist</h1>
+      <br/>
+      <br/>
+        <h2 style="margin-left:15%;">{{inQuestion.input}}</h2>
+        <h4 style="float:right;margin-right:25%;">Author: <strong style="color:teal;">{{inQuestion.nickname}}</strong></h4>
+        <br/>
+        <br/>
+    <div class="card" ng-repeat="answer in answers">
+      <div class="item item-text-wrap">
+        <h2>{{answer.input}}</h2>
+        <br/>
+      <strong>Author: {{answer.nickname}}</strong>
+      <small style="float:right;">{{answer.dateIn}}</small>
+    </div>
+    </div>
   </ion-content>
 </ion-view>

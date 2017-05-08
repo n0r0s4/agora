@@ -38,20 +38,20 @@ class AnswerControllerClass implements ControllerInterface {
         $outPutData = array();
 
         switch ($this->getAction()) {
-            case 10000:
+            case 10010:
                 $outPutData = $this->llistAll();
                 break;
-            case 10000:
+            case 10020:
                 $outPutData = $this->create();
                 break;
-            case 10000:
+            case 10030:
                 $outPutData = $this->delete();
                 break;
-            case 10000:
+            case 10040:
                 $outPutData = $this->update();
                 break;
-            case 10000:
-                $outPutData = $this->findByPK();
+            case 10050:
+                $outPutData = $this->findByQuestionId();
                 break;
             default:
                 $errors = array();
@@ -125,6 +125,32 @@ class AnswerControllerClass implements ControllerInterface {
         return $outPutData;
     }
 
+    private function findByQuestionId() {
+        //Films modification
+        $questionObj = json_decode(stripslashes($this->getJsonData()));
+        $outPutData = array();
+        $outPutData[] = true;
+        $answer = new Answer();
+        $answer->setAll(0,"nickname", $questionObj->idquestion, "input", "date");
+        $listAnswers = AnswerADO::findByQuestionId($answer);
+        if (count($listAnswers) == 0) {
+            $outPutData[0] = false;
+            $errors[] = "No answers found in database";
+        } else {
+            $answersArray = array();
+
+            foreach ($listAnswers as $answer) {
+                $answersArray[] = $answer->getAll();
+            }
+        }
+        if ($outPutData[0]) {
+            $outPutData[] = $answersArray;
+        } else {
+            $outPutData[] = $errors;
+        }
+        return $outPutData;
+    }
+
     private function findByPK() {
         //Films modification
         $answersArray = json_decode(stripslashes($this->getJsonData()));
@@ -132,7 +158,7 @@ class AnswerControllerClass implements ControllerInterface {
         $outPutData[] = true;
         foreach ($answersArray as $answerObj) {
             $answer = new Answer();
-            $answer->setAll($answerObj->nickname, $answerObj->idquestion, $answerObj->input, $answerObj->date);
+            $answer->setAll(0,$answerObj->nickname, $answerObj->idquestion, $answerObj->input, $answerObj->date);
             AnswerADO::findByPK($answer);
         }
         return $outPutData;
