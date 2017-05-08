@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 29-04-2017 a las 12:11:52
--- Versión del servidor: 5.6.33-0ubuntu0.14.04.1
--- Versión de PHP: 7.0.18-1+deb.sury.org~trusty+1
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 07-05-2017 a las 19:59:26
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -66,7 +66,10 @@ INSERT INTO `questions` (`idquestion`, `nickname`, `topicname`, `input`, `date`)
 (2, 'Pepe', 'Education', 'Write a method which will remove any given character from a String?', '2017-02-06'),
 (3, 'Xmen', 'Flu', 'Why String is final in Java?', '2017-04-25'),
 (4, 'Snoopy', 'C#', 'How to Split String in Java?', '2017-04-27'),
-(5, 'TheRock', 'Economy', 'Why Char array is preferred over String for storing password?', '2017-02-13');
+(5, 'TheRock', 'Economy', 'Why Char array is preferred over String for storing password?', '2017-02-13'),
+(19, 'tester', 'C#', 'it works', '2017-05-06'),
+(29, 'anonymous', 'Java', 'how can i learn java easy mode easy pace? thx', '2017-05-06'),
+(30, 'tester', 'Java', 'Where can i find good springboot tutorialsÂ¿', '2017-05-07');
 
 -- --------------------------------------------------------
 
@@ -161,9 +164,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`nickname`, `userscore`, `firstname`, `lastname`, `email`, `password`, `postalcode`) VALUES
+('anonymous', 0, 'anonymous', 'anonymous', 'not@real.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 0),
 ('Lola', 2, 'Lola', 'Loli', 'loli@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 45623),
 ('Pepe', 3, 'Pepe', 'Väth', 'pepe@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 45623),
 ('Snoopy', 50, 'Snoopy', 'Loli', 'snoopy@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 45623),
+('succesfullreal', 0, 'succesrealName', 'succesrealLastname', 'succesreal@mail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 8004),
+('tester', 0, 'tester', 'tester', 'n@mail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 12345),
 ('TheRock', 20, 'TheRock', 'Pierdra', 'marcos@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 78945),
 ('Xmen', 5, 'Xmen', 'Pescador', 'rocki@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 45632);
 
@@ -301,7 +307,7 @@ ALTER TABLE `answers`
 -- AUTO_INCREMENT de la tabla `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `idquestion` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idquestion` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de la tabla `reporta`
 --
