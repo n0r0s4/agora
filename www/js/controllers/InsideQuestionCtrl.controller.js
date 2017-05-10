@@ -1,9 +1,30 @@
 starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, accessService, $stateParams, $state) {
   $scope.inQuestion;
+  $scope.answer=false;
   $scope.answers=[];
+  $scope.passa;
+  $scope.confirma;
+  $scope.finaltesta;
   function inQuestion(){
     $scope.inQuestion=$scope.$parent.insiderDaddy;
   }
+
+  $scope.newAnswer = function(){
+    $scope.passa=randomString(5, '¿%:Zx9');
+    $scope.theanswer = new Answer();
+    $scope.theanswer.setNickname($scope.$parent.theuser.getNickname());
+    $scope.theanswer.setIdquestion($scope.inQuestion.getIdquestion());
+    $scope.theanswer.setTopicname($scope.inQuestion.getTopicname());
+    $scope.theanswer.setIdanswer(0);
+    $scope.theanswer.setDateIn(0);
+  }
+
+  function randomString(length, chars) {
+      var result = '';
+      for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+      return result;
+    }
+
    function loadAnswers(){
     //Server conenction to verify user's data
     $scope.gimmeAnswers=angular.copy($scope.inQuestion);
@@ -48,6 +69,8 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
       //$scope.$parent.openModal(1);
     });
   };
+
+
   inQuestion();
   loadAnswers();
 });

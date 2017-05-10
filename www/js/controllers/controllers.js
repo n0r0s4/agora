@@ -30,6 +30,7 @@ starterApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state,
     $scope.confirm="";
     $scope.finaltest="";
   }
+
   $scope.registered=0;
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -67,14 +68,27 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
       $scope.oModal3 = modal;
     });
 
+    $ionicModal.fromTemplateUrl('templates/answer.html', {
+          id: '4', // We need to use and ID to identify the modal that is firing the event!
+          scope: $scope,
+          backdropClickToClose: false,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          $scope.oModal4 = modal;
+        });
 
     $scope.openModal = function(index) {
       if (index == 1) $scope.oModal1.show();
       else if(index == 3) {
           $scope.newQuestion();
           getAllTopics();
-          $scope.pass=randomString(1, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+          $scope.pass=randomString(5, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
           $scope.oModal3.show();
+      }
+      else if(index == 4){
+        $scope.newAnswer();
+        $scope.pass=randomString(5, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        $scope.oModal4.show();
       }
       else $scope.oModal2.show();
     };
@@ -84,6 +98,9 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
       else if(index == 3) {
         $scope.newQuestion();
         $scope.oModal3.hide();
+      }
+      else if(index == 4){
+        $scope.oModal4.hide();
       }
       else $scope.oModal2.hide();
     };
@@ -214,9 +231,9 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
         $scope.theuser.userscore=outputData[1][0].userscore;
         $scope.theuser.firstname=outputData[1][0].firstname;
         $scope.theuser.lastname=outputData[1][0].lastname;
-        $ionicHistory.nextViewOptions({
+        /*$ionicHistory.nextViewOptions({
             disableBack: true
-          });
+          });*/
         $state.go('app.playlists');
         $scope.closeModal(1);
         //alert($scope.theuser.email);
@@ -235,9 +252,9 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
   };
   $scope.logout = function(){
     $scope.newUser();
-    $ionicHistory.nextViewOptions({
+    /*$ionicHistory.nextViewOptions({
         disableBack: true
-      });
+      });*/
     $state.go('app.playlists');
     $scope.openModal(1);
   }
@@ -264,7 +281,8 @@ $scope.newQuestion();
         template: msg
       });
       alertPopup.then(function(res) {
-      location.reload();
+      $state.go('app.playlists');
+      $scope.closeModal(3);
       });
     };
 
