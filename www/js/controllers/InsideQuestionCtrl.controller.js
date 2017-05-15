@@ -19,6 +19,38 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
     $scope.theanswer.setDateIn(0);
   }
 
+
+  $scope.doAnswer = function(){
+    //alert("hello");
+    var theanswer=angular.copy($scope.theanswer);
+    console.log(theanswer);
+    var promise = accessService.getData("php/controllers/MainController.php",
+    true, "POST", {controllerType: 1, action: 10020, jsonData: JSON.stringify(theanswer)});
+
+    promise.then(function (outputData) {
+      //alert("con done");
+      console.log(outputData);
+      if(outputData[0] === true) {
+        console.log(outputData[1]);
+        $scope.answer=false;
+        $scope.answers.push(theanswer);
+        $scope.newAnswer();
+        $scope.showPopup("THANKS!","Your answer was send succesfully!");
+        //console.log(outputData[1]);
+        //id,idUser,dateReview, rate,description
+      }
+      else {
+        console.log(outputData);
+        if(angular.isArray(outputData[1])) {
+          $scope.showPopup("OMG!","Seems like your answer has too much wisdom for our database! Try later! ->"+outputData[1]);
+        }
+        else {
+          alert("There has been an error in the server, try later");
+        }
+      }
+    });
+  }
+
   function randomString(length, chars) {
       var result = '';
       for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];

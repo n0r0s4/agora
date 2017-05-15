@@ -90,10 +90,10 @@ class AnswerControllerClass implements ControllerInterface {
     private function create() {
         $answerObj = json_decode(stripslashes($this->getJsonData()));
         $answer = new Answer();
-        $answer->setAll(0, $answerObj->nickname, $answerObj->idquestion, $answerObj->input, $answerObj->date);
+        $answer->setAll(0, $answerObj->nickname, $answerObj->idquestion, $answerObj->input, date("Y-m-d"));
         $outPutData = array();
         $outPutData[] = true;
-        $answer->setAnswerId(AnswerADO::create($answer));
+        $answer->setIdanswer(AnswerADO::create($answer));
         //the senetnce returns de nickname of the answer inserted
         $outPutData[] = array($answer->getAll());
         return $outPutData;

@@ -148,7 +148,7 @@ class AnswerADO implements EntityInterface {
         }
 
         $cons = "insert into " . AnswerADO::$tableAnswers . " (`nickname`,`idquestion`,`input`,`date`) values (?, ?, ?, ?)";
-        $arrayValues = [ $review->getNickname(), $review->getIdquestion(), $review->getInput(), new Date()];
+        $arrayValues = [ $review->getNickname(), $review->getIdquestion(), $review->getInput(), date("Y-m-d")];
         $id = $conn->executionInsert($cons, $arrayValues);
         $review->setIdanswer($id);
         return $review->getIdanswer();
