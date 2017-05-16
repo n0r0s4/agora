@@ -1,6 +1,7 @@
 starterApp.controller('PlaylistsCtrl', function($scope, accessService, $stateParams, $state) {
   $scope.questions =[];
   $scope.insider;
+  $scope.theFilter="date";
   $scope.insideQuestion = function(question){
     console.log(question);
     $scope.$parent.insiderDaddy=question;
@@ -10,7 +11,7 @@ starterApp.controller('PlaylistsCtrl', function($scope, accessService, $statePar
     /*console.log($scope.insider);*/
     $state.go('app.single');
   }
-  
+
   $scope.loadInitData = function (){
     //Server conenction to verify user's data
     var promise = accessService.getData("php/controllers/MainController.php",

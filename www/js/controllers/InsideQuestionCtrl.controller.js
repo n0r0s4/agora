@@ -5,6 +5,7 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
   $scope.passa;
   $scope.confirma;
   $scope.finaltesta;
+  $scope.theFilterA="dateIn";
   function inQuestion(){
     $scope.inQuestion=$scope.$parent.insiderDaddy;
   }

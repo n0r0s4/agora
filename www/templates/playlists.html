@@ -6,7 +6,17 @@
     <ion-list>
       <br/>
       <br/>
-      <ion-item ng-repeat="question in questions" href="#/app/playlists/{{question.id}}">
+      <label class = "item item-input item-select">
+        <div class = "input-label">
+      Order by
+      </div>
+      <select class="" name="filterq" ng-model="theFilter">
+        <option value="nickname">Nickname</option>
+        <option value="date">Date</option>
+        <option value="topicname">Topic</option>
+      </select>
+    </label>
+      <ion-item ng-repeat="question in questions | orderBy: theFilter:false" href="#/app/playlists/{{question.id}}">
         <a ng-click="insideQuestion(question);">
           <h2>{{question.input}}</h2>
         <strong>Author: {{question.nickname}}</strong>
