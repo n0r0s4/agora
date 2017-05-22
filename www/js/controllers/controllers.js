@@ -81,7 +81,16 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
       if (index == 1) $scope.oModal1.show();
       else if(index == 3) {
           $scope.newQuestion();
-          getAllTopics();
+          if($scope.theuser.nickname!="anonymous")
+            getAllTopics();
+          else{
+            $scope.topics=[];
+            var topic = new Topic();
+            topic.setTopicname("untopic");
+            topic.setMaintopic("untopic");
+            $scope.topics.push(topic);
+            $scope.thequestion.topicname=$scope.topics[0].getTopicname();
+          }
           $scope.pass=randomString(5, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
           $scope.oModal3.show();
       }
@@ -139,7 +148,6 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
         //console.log(outputData);
         if(outputData[0]===true) {
           $scope.showPopupWithReload("Question has done succesfully!","Stay alert for the answers!");
-          //location.reload();
           //console.log(outputData[1]);
           //console.log(outputData[1]);
           //id,idUser,dateReview, rate,description
@@ -231,6 +239,7 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
         $scope.theuser.userscore=outputData[1][0].userscore;
         $scope.theuser.firstname=outputData[1][0].firstname;
         $scope.theuser.lastname=outputData[1][0].lastname;
+        localStorage.setItem('user', JSON.stringify($scope.theuser));
         /*$ionicHistory.nextViewOptions({
             disableBack: true
           });*/
@@ -252,6 +261,7 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
   };
   $scope.logout = function(){
     $scope.newUser();
+    localStorage.setItem('user', "removed");
     /*$ionicHistory.nextViewOptions({
         disableBack: true
       });*/
@@ -282,7 +292,7 @@ $scope.newQuestion();
       });
       alertPopup.then(function(res) {
       $state.go('app.playlists');
-      $scope.closeModal(3);
+      location.reload();
       });
     };
 

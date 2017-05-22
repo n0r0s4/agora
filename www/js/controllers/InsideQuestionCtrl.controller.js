@@ -33,10 +33,11 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
       console.log(outputData);
       if(outputData[0] === true) {
         console.log(outputData[1]);
-        $scope.answer=false;
+        theanswer.dateIn="right now";
         $scope.answers.push(theanswer);
         $scope.newAnswer();
         $scope.showPopup("THANKS!","Your answer was send succesfully!");
+        $state.go('app.playlists');
         //console.log(outputData[1]);
         //id,idUser,dateReview, rate,description
       }
@@ -100,6 +101,7 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
     alertPopup.then(function(res) {
       //$state.go('app.playlists');
       //$scope.$parent.openModal(1);
+      //$state.go('app.single');
     });
   };
 

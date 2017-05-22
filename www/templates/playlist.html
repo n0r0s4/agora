@@ -6,9 +6,9 @@
       <br/>
       <br/>
         <h2 style="margin-left:15%;">{{inQuestion.input}}</h2>
-        <h4 style="float:right;margin-right:25%;">Author: <strong style="color:teal;">{{inQuestion.nickname}}</strong></h4>
+        <h4 style="float:right;margin-right:20%;margin-left:20%;">Author: <strong style="color:teal;">{{inQuestion.nickname}}</strong></h4>
         <br/>
-              <a class="button button-block button-dark" ng-click="newAnswer();answer?answer=false:answer=true;"><span ng-show="!answer">Click me to make your answer!</span>
+              <a class="button button-block button-dark" ng-show="(theuser.nickname=='anonymous' && inQuestion.topicname=='untopic') || (theuser.nickname!='anonymous')" ng-click="newAnswer();answer?answer=false:answer=true;"><span ng-show="!answer">Click me to make your answer!</span>
               <span ng-show="answer">Click me to cancel your answer!</span></a>
         <br/>
         <div ng-show="answer" class="card">

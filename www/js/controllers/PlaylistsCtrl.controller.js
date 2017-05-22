@@ -44,5 +44,23 @@ starterApp.controller('PlaylistsCtrl', function($scope, accessService, $statePar
       }
     });
   }
+    if(localStorage.getItem('user')!=undefined &&
+    localStorage.getItem('user')!="removed"){
+      var usersaved=JSON.parse(localStorage.getItem('user'));
+      //nickname, userscore, firstname, lastname, email, password, postalcode
+      $scope.theuser.construct(
+        usersaved.nickname,
+        usersaved.userscore,
+        usersaved.firstname,
+        usersaved.lastname,
+        usersaved.email,
+        usersaved.password,
+        usersaved.postalcode
+      );
+
+      //alert("user found");
+    }
+    //else alert("user not found!");
+
     $scope.loadInitData();
 });
