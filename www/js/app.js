@@ -51,15 +51,7 @@ starterApp.config(function($stateProvider, $urlRouterProvider) {
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
+
     .state('app.playlists', {
       url: '/playlists',
       views: {
@@ -78,7 +70,8 @@ starterApp.config(function($stateProvider, $urlRouterProvider) {
         controller: 'InsideQuestionCtrl'
       }
     }
-  });
+  })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');
 });

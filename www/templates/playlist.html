@@ -36,16 +36,14 @@
           </label>
         </div>
         </div>
-        <label class = "item item-input item-select">
-          <div class = "input-label">
-        Order by
-        </div>
+        <label class = "item item-input">
+        <strong>Order by...</strong>
         <select class="" name="filtera" ng-model="theFilterA">
           <option value="nickname">Nickname</option>
           <option value="dateIn">Date</option>
         </select>
       </label>
-    <div class="card" ng-repeat="answer in answers | orderBy: theFilterA:false">
+    <div class="card" ng-repeat="answer in answers | orderBy: theFilterA:true">
       <div class="item item-text-wrap">
         <h2>{{answer.input}}</h2>
         <br/>

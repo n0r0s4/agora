@@ -3,20 +3,30 @@
     <h2>ΑΓΟΡΑ</h2>
 </ion-nav-title>
   <ion-content>
+      <br/>
+      <br/>
+    <label class="item" style="text-align:center;"><strong>SELECT TOPIC</strong></label>
     <ion-list>
-      <br/>
-      <br/>
-      <label class = "item item-input item-select">
-        <div class = "input-label">
-      Order by
-      </div>
-      <select style="margin-left:20%;margin-right:20%;" class="" name="filterq" ng-model="theFilter">
-        <option value="nickname">Nickname</option>
-        <option value="date">Date</option>
-        <option value="topicname">Topic</option>
-      </select>
-    </label>
-      <ion-item ng-repeat="question in questions | orderBy: theFilter:false" href="#/app/playlists/{{question.id}}">
+      <ion-radio style="text-align:center;" ng-model="$parent.selectedTopic" ng-change="test(topic.topicname)" ng-repeat="topic in topics" ng-value="topic.topicname">{{topic.topicname}}</ion-radio>
+    </ion-list>
+<!-- stack over flow
+<div ng-controller="DynamicCtrl">
+    <input type="radio" ng-model="$parent.lunch" ng-repeat="m in meat"
+    ng-value="m" name="lunch">
+    {{lunch}}
+</div>
+-->
+    <label class = "item item-input">
+    <strong>Order by ...</strong>
+    <select class="item select" name="filterq" ng-model="theFilter">
+      <option value="nickname">Nickname</option>
+      <option value="date">Date</option>
+      <option value="topicname">Topic</option>
+    </select>
+  </label>
+  <br/>
+  <ion-list>
+      <ion-item ng-repeat="question in questions | orderBy: theFilter:true" href="#/app/playlists/{{question.id}}">
         <a ng-click="insideQuestion(question);">
           <h2>{{question.input}}</h2>
         <strong>Author: {{question.nickname}}</strong>
