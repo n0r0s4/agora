@@ -7,12 +7,14 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
   $scope.confirma;
   $scope.finaltesta;
   $scope.theFilterA="dateIn";
+  console.log("reset");
+  $scope.torate="rateme";
   function inQuestion(){
     $scope.inQuestion=$scope.$parent.insiderDaddy;
   }
 
   $scope.newAnswer = function(){
-    $scope.passa=randomString(5, '¿%:Zx9');
+    $scope.passa=randomString(5, '¿%!@?¡Zx123456789');
     $scope.theanswer = new Answer();
     $scope.theanswer.setNickname($scope.$parent.theuser.getNickname());
     $scope.theanswer.setIdquestion($scope.inQuestion.getIdquestion());
@@ -39,6 +41,40 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
         $scope.newAnswer();
         $scope.showPopup("THANKS!","Your answer was send succesfully!");
         $state.go('app.playlists');
+        //console.log(outputData[1]);
+        //id,idUser,dateReview, rate,description
+      }
+      else {
+        console.log(outputData);
+        if(angular.isArray(outputData[1])) {
+          $scope.showPopup("OMG!","Seems like your answer has too much wisdom for our database! Try later! ->"+outputData[1]);
+        }
+        else {
+          alert("There has been an error in the server, try later");
+        }
+      }
+    });
+  }
+
+  $scope.doRate = function(){
+    alert("rating");
+    var rate= new Valorationq();
+    //idvalorationq, nickname, idquestion, valoration, date
+    rate.construct(0,$scope.$parent.theuser.getNickname(),$scope.inQuestion.idquestion,$scope.torate,0);
+    var ratesend=angular.copy(rate);
+    console.log(ratesend);
+    //console.log(theanswer);
+    var promise = accessService.getData("php/controllers/MainController.php",
+    true, "POST", {controllerType: 6, action: 10100, jsonData: JSON.stringify(ratesend)});
+
+    promise.then(function (outputData) {
+      //alert("con done");
+      console.log(outputData);
+      if(outputData[0] === true) {
+        console.log(outputData[1]);
+        $scope.showPopup("THANKS!","The question was rated succesfully!");
+        $state.go('app.playlists');
+        location.reload();
         //console.log(outputData[1]);
         //id,idUser,dateReview, rate,description
       }
@@ -159,7 +195,6 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
       //$state.go('app.single');
     });
   };
-
 
   inQuestion();
   loadAnswers();

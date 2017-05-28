@@ -245,6 +245,7 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
           });*/
         $state.go('app.playlists');
         $scope.closeModal(1);
+        location.reload();
         //alert($scope.theuser.email);
 
       }

@@ -1,19 +1,41 @@
 <ion-view>
   <ion-nav-title>
-    <h2>Question {{inQuestion.idquestion}}</h2>
+    <p>Question {{inQuestion.idquestion}}</p>
 </ion-nav-title>
   <ion-content>
       <br/>
       <br/>
         <h2 style="margin-left:15%;margin-right=15%;">{{inQuestion.input}}</h2>
-        <div style="margin-left:15%;margin-right=15%;">
-        <h2>{{inQuestion.totalvaloration}} <i style="font-size:35px;" class="icon ion-star"></i></h2>
-        {{inQuestion.rated}}
-      </div>
-      </div>
-        <h4 style="float:right;margin-right:20%;margin-left:20%;">Author: <strong style="color:teal;">{{inQuestion.nickname}}</strong></h4>
+        <h4 style="float:left;margin-right:20%;margin-left:20%;">Author: <strong style="color:teal;">{{inQuestion.nickname}}</strong></h4>
         <br/>
-              <a class="button button-block button-dark" ng-show="(theuser.nickname=='anonymous' && inQuestion.topicname=='untopic') || (theuser.nickname!='anonymous')" ng-click="newAnswer();answer?answer=false:answer=true;"><span ng-show="!answer">Click me to make your answer!</span>
+        <div style="margin-left:15%;margin-right:15%;">
+        <h2>{{inQuestion.totalvaloration}} <i style="font-size:35px;" class="icon ion-star"></i></h2>
+        <div ng-show="$parent.theuser.nickname!='anonymous'">
+          <h2 ng-if="inQuestion.rated">You already rated this question!</h2>
+          <div ng-show="!inQuestion.rated">
+          <form style="margin: auto;" name="rateform" ng-submit="doRate()" novalidate>
+
+              <strong>Rate this question</strong><br/>
+            <label class="item item-input">
+          <select class="" name="rate" ng-model="$parent.torate">
+            <option value="rateme">Rateme!</option>
+            <option value="1">Nothing interesting</option>
+            <option value="2">Maybe some day i will read it</option>
+            <option value="3">Interesting</option>
+            <option value="4">Usefull</option>
+            <option value="5">This question saved my life</option>
+          </select><br/>
+        </label>
+          <button class="button button-block button-calm" ng-disabled="torate=='rateme'" type="submit">Rate!</button>
+        </form>
+          </div>
+        </div>
+          <strong ng-if="$parent.theuser.nickname=='anonymous'">Login to rate the question</strong>
+      </div>
+      </div>
+
+        <br/>
+              <a class="button button-block button-dark" ng-show="($parent.theuser.nickname=='anonymous' && inQuestion.topicname=='untopic') || ($parent.theuser.nickname!='anonymous')" ng-click="newAnswer();answer?answer=false:answer=true;"><span ng-show="!answer">Click me to make your answer!</span>
               <span ng-show="answer">Click me to cancel your answer!</span></a>
         <br/>
         <div ng-show="answer" class="card">
