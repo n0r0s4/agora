@@ -2,6 +2,7 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
   $scope.inQuestion;
   $scope.answer=false;
   $scope.answers=[];
+  $scope.valorationsa=[];
   $scope.passa;
   $scope.confirma;
   $scope.finaltesta;
@@ -53,6 +54,59 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
     });
   }
 
+  $scope.loadAnswerValorations = function(){
+    var promise = accessService.getData("php/controllers/MainController.php",
+    true, "POST", {controllerType: 5, action: 10000, jsonData: ""});
+
+    promise.then(function (outputData) {
+      //alert("con done");
+      if(outputData[0] === true) {
+        console.log("HERE");
+        console.log(outputData[1]);
+        //console.log(outputData[1]);
+        //id,idUser,dateReview, rate,description
+        /*
+        this.idvalorationq;
+        this.nickname;
+        this.idquestion;
+        this.valoration;
+        this.date;
+        */
+        var valoration = new Valorationa();
+        for (var i = 0; i < outputData[1].length; i++) {
+          var valoration = new Valorationa();
+          valoration.setIdvalorationa(outputData[1][i].idvalorationa);
+          valoration.setIdanswer(outputData[1][i].idanswer);
+          valoration.setValoration(outputData[1][i].valoration);
+          //valoration.setValoration(outputData[1][i].valoration);
+          $scope.valorationsa.push(valoration);
+        }
+        console.log($scope.valorationsa);
+        for(var i=0; i<$scope.answers.length;i++){
+          var acumVal=0;
+          for(var j=0; j<$scope.valorationsa.length; j++){
+            if($scope.answers[i].idanswer==$scope.valorationsa[j].idanswer){
+              acumVal+=parseInt($scope.valorationsa[j].valoration);
+              console.log("coindice");
+            }
+            console.log($scope.answers[i].idanswer);
+          }
+          $scope.answers[i].setTotalvaloration(acumVal);
+        }
+      }
+      else {
+        console.log(outputData);
+        if(angular.isArray(outputData[1])) {
+          alert(outputData[1]);
+        }
+        else {
+          alert("There has been an error in the server, try later");
+        }
+      }
+    });
+  }
+
+
   function randomString(length, chars) {
       var result = '';
       for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
@@ -74,6 +128,7 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
         //id,idUser,dateReview, rate,description
         for (var i = 0; i < outputData[1].length; i++) {
           var answer = new Answer();
+          answer.setIdanswer(outputData[1][i].idanswer);
           answer.setIdquestion(outputData[1][i].idquestion);
           answer.setNickname(outputData[1][i].nickname);
           answer.setTopicname(outputData[1][i].topicname);
@@ -108,4 +163,5 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
 
   inQuestion();
   loadAnswers();
+  $scope.loadAnswerValorations();
 });

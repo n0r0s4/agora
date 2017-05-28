@@ -266,7 +266,8 @@ $ionicModal.fromTemplateUrl('templates/login.html', {
         disableBack: true
       });*/
     $state.go('app.playlists');
-    $scope.openModal(1);
+    //$scope.openModal(1);
+    location.reload();
   }
 $scope.newUser();
 $scope.newQuestion();

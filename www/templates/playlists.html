@@ -22,6 +22,7 @@
       <option value="nickname">Nickname</option>
       <option value="date">Date</option>
       <option value="topicname">Topic</option>
+      <option value="totalvaloration">Score</option>
     </select>
   </label>
   <br/>
@@ -29,7 +30,8 @@
       <ion-item ng-repeat="question in questions | orderBy: theFilter:true" href="#/app/playlists/{{question.id}}">
         <a ng-click="insideQuestion(question);">
           <h2>{{question.input}}</h2>
-        <strong>Author: {{question.nickname}}</strong>
+        <strong>Author: {{question.nickname}}</strong><br/>
+        <strong style="color:teal;">Total Score: {{question.totalvaloration}}</strong><i class="icon ion-star"></i>
         <small style="float:right;">{{question.topicname}}</small>
       </a>
       </ion-item>

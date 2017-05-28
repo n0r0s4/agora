@@ -73,8 +73,8 @@ $scope.createUser = function (){
     console.log($scope.user);
     $scope.user.userscore=0;
     $scope.$parent.registered=1;
-    $scope.$parent.theuser.setNickname($scope.user.nickname);
-    $scope.$parent.theuser.setPassword($scope.user.password);
+    //$scope.$parent.theuser.setNickname($scope.user.nickname);
+    //$scope.$parent.theuser.setPassword($scope.user.password);
     $scope.user= angular.copy($scope.user);
     var promise = accessService.getData("php/controllers/MainController.php",
     true, "POST", {controllerType: 0, action: 10010, jsonData: JSON.stringify($scope.user)});
@@ -89,7 +89,8 @@ $scope.createUser = function (){
         $ionicHistory.nextViewOptions({
             disableBack: true
           });
-        $scope.showPopup("Wellcome!", "You have been registered succesfully!");
+        $scope.password2="";
+        $scope.showPopup("Wellcome!", "You have been registered succesfully! Now you can login!");
         $scope.user=new User();
         /*for (var i = 0; i < outputData[1].length; i++) {
           var question = new Question();

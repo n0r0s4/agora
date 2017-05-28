@@ -5,7 +5,12 @@
   <ion-content>
       <br/>
       <br/>
-        <h2 style="margin-left:15%;">{{inQuestion.input}}</h2>
+        <h2 style="margin-left:15%;margin-right=15%;">{{inQuestion.input}}</h2>
+        <div style="margin-left:15%;margin-right=15%;">
+        <h2>{{inQuestion.totalvaloration}} <i style="font-size:35px;" class="icon ion-star"></i></h2>
+        {{inQuestion.rated}}
+      </div>
+      </div>
         <h4 style="float:right;margin-right:20%;margin-left:20%;">Author: <strong style="color:teal;">{{inQuestion.nickname}}</strong></h4>
         <br/>
               <a class="button button-block button-dark" ng-show="(theuser.nickname=='anonymous' && inQuestion.topicname=='untopic') || (theuser.nickname!='anonymous')" ng-click="newAnswer();answer?answer=false:answer=true;"><span ng-show="!answer">Click me to make your answer!</span>
@@ -41,13 +46,15 @@
         <select class="" name="filtera" ng-model="theFilterA">
           <option value="nickname">Nickname</option>
           <option value="dateIn">Date</option>
+          <option value="valoration">Score</option>
         </select>
       </label>
-    <div class="card" ng-repeat="answer in answers | orderBy: theFilterA:true">
+    <div class="card" ng-repeat="answer in answers | orderBy: theFilterA:false">
       <div class="item item-text-wrap">
         <h2>{{answer.input}}</h2>
         <br/>
       <strong>Author: {{answer.nickname}}</strong>
+      <strong style="color:teal;">Total Score: {{answer.totalvaloration}}</strong><i class="icon ion-star"></i>
       <small style="float:right;">{{answer.dateIn}}</small>
     </div>
     </div>
