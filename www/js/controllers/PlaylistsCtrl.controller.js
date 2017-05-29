@@ -48,6 +48,9 @@ starterApp.controller('PlaylistsCtrl', function($scope, accessService, $statePar
       }
     });
   }
+
+
+
     if(localStorage.getItem('user')!=undefined &&
     localStorage.getItem('user')!="removed"){
       var usersaved=JSON.parse(localStorage.getItem('user'));
@@ -182,8 +185,9 @@ starterApp.controller('PlaylistsCtrl', function($scope, accessService, $statePar
                   //console.log("valoration: "+$scope.valorationsq[j].nickname);
                   //console.log("FIN primera pregunta____________________________");
                 }
-                if($scope.valorationsq[j].nickname==$scope.$parent.theuser.nickname &&
-                $scope.valorationsq[j].idquestion==$scope.questions[i].idquestion){
+                if(($scope.valorationsq[j].nickname==$scope.$parent.theuser.nickname &&
+                $scope.valorationsq[j].idquestion==$scope.questions[i].idquestion)||
+                $scope.questions[i].nickname==$scope.$parent.theuser.nickname){
                   $scope.questions[i].setRated(true);
                   //console.log($scope.questions[i]);
                 }
@@ -207,7 +211,15 @@ starterApp.controller('PlaylistsCtrl', function($scope, accessService, $statePar
         });
       }
 
+      function loadAll(){
+        $scope.loadInitData();
+        $scope.loadTopics();
+        $scope.loadValorations();
+      }
+
     $scope.loadInitData();
     $scope.loadTopics();
     $scope.loadValorations();
+    $scope.$parent.reloadFunction=loadAll;
+
 });

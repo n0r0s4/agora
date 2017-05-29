@@ -17,6 +17,7 @@ starterApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state,
 *////
   // Form data for the login modal
   //$scope.topics=[];
+  $scope.reloadFunction;
   $scope.insiderDaddy;
   $scope.loginData = {};
   $scope.newUser = function(){

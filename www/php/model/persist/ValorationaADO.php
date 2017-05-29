@@ -105,7 +105,7 @@ class ValorationaADO implements EntityInterface {
         $arrayValues = [$object->getIdValorationa()];
         return ValorationaADO::findByQuery($cons, $arrayValues);
     }
-    
+
     /**
      * findByNickname()
      * It runs a query and returns an object array
@@ -143,10 +143,17 @@ class ValorationaADO implements EntityInterface {
             die();
         }
         $cons = "insert into " . ValorationaADO::$tableValorationas . " (`nickname`,`idanswer`,`valoration`,`date`) values (?, ?, ?, ?)";
-        $arrayValues = [ $object->getNickname(), $object->getValoration(), new Date()];
+        $arrayValues = [ $object->getNickname(), $object->getIdanswer(), (int)$object->getValoration(), date("Y-m-d")];
         $id = $conn->executionInsert($cons, $arrayValues);
         $object->setIdvalorationa($id);
         return $object->getIdValorationa();
+        /*
+        $cons = "insert into " . ValorationqADO::$tableValorationqs . " (`nickname`,`idquestion`,`valoration`,`date`) values (?, ?, ?, ?)";
+        $arrayValues = [ $object->getNickname(), $object->getIdquestion(), (int)$object->getValoration(),  date("Y-m-d")];
+        $id = $conn->executionInsert($cons, $arrayValues);
+        $object->setIdvalorationq($id);
+        return $object->getIdValorationq();
+        */
     }
 
     /**

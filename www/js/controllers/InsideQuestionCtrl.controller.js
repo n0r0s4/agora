@@ -7,8 +7,9 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
   $scope.confirma;
   $scope.finaltesta;
   $scope.theFilterA="dateIn";
-  console.log("reset");
+  //console.log("reset");
   $scope.torate="rateme";
+  $scope.torateanswer="rateme";
   function inQuestion(){
     $scope.inQuestion=$scope.$parent.insiderDaddy;
   }
@@ -72,9 +73,44 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
       console.log(outputData);
       if(outputData[0] === true) {
         console.log(outputData[1]);
-        $scope.showPopup("THANKS!","The question was rated succesfully!");
-        $state.go('app.playlists');
-        location.reload();
+        $scope.valorationsa.push(rate);
+        $scope.showPopup("THANKS 4 RATE!");
+        //location.reload();
+        //console.log(outputData[1]);
+        //id,idUser,dateReview, rate,description
+      }
+      else {
+        console.log(outputData);
+        if(angular.isArray(outputData[1])) {
+          $scope.showPopup("OMG!","Seems like your answer has too much wisdom for our database! Try later! ->"+outputData[1]);
+        }
+        else {
+          alert("There has been an error in the server, try later");
+        }
+      }
+    });
+  }
+
+  $scope.doRateAnswer = function(answer){
+
+    alert("rating answer");
+    var rate= new Valorationa();
+    //idvalorationa, nickname, idanswer, valoration, date
+    rate.construct(0,$scope.$parent.theuser.getNickname(),answer.idanswer,$scope.torateanswer,0);
+    var ratesend=angular.copy(rate);
+    console.log(ratesend);
+    //console.log(theanswer);
+    var promise = accessService.getData("php/controllers/MainController.php",
+    true, "POST", {controllerType: 5, action: 10100, jsonData: JSON.stringify(ratesend)});
+
+    promise.then(function (outputData) {
+      //alert("con done");
+      console.log(outputData);
+      if(outputData[0] === true) {
+        console.log(outputData[1]);
+        $scope.valorationsa.push(rate);
+        $scope.showPopup("THANKS 4 RATE!");
+        //location.reload();
         //console.log(outputData[1]);
         //id,idUser,dateReview, rate,description
       }
@@ -97,8 +133,8 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
     promise.then(function (outputData) {
       //alert("con done");
       if(outputData[0] === true) {
-        console.log("HERE");
-        console.log(outputData[1]);
+        //console.log("HERE");
+        //console.log(outputData[1]);
         //console.log(outputData[1]);
         //id,idUser,dateReview, rate,description
         /*
@@ -114,19 +150,31 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
           valoration.setIdvalorationa(outputData[1][i].idvalorationa);
           valoration.setIdanswer(outputData[1][i].idanswer);
           valoration.setValoration(outputData[1][i].valoration);
+          valoration.setNickname(outputData[1][i].nickname);
           //valoration.setValoration(outputData[1][i].valoration);
           $scope.valorationsa.push(valoration);
         }
-        console.log($scope.valorationsa);
+        //console.log($scope.valorationsa);
+        console.log("______entrando")
         for(var i=0; i<$scope.answers.length;i++){
           var acumVal=0;
           for(var j=0; j<$scope.valorationsa.length; j++){
             if($scope.answers[i].idanswer==$scope.valorationsa[j].idanswer){
               acumVal+=parseInt($scope.valorationsa[j].valoration);
-              console.log("coindice");
+              //console.log("coindice");
             }
-            console.log($scope.answers[i].idanswer);
+            if(($scope.valorationsa[j].nickname==$scope.$parent.theuser.nickname &&
+            $scope.valorationsa[j].idanswer==$scope.answers[i].idanswer)||
+            $scope.answers[i].nickname==$scope.$parent.theuser.nickname){
+              $scope.answers[i].setRated(true);
+              console.log("coincide");
+              //console.log($scope.questions[i]);
+            }
+            console.log()
+
+
           }
+          console.log("____________revisada "+i);
           $scope.answers[i].setTotalvaloration(acumVal);
         }
       }
@@ -157,9 +205,9 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
 
     promise.then(function (outputData) {
       //alert("con done");
-      console.log(outputData);
+      //console.log(outputData);
       if(outputData[0] === true) {
-        console.log(outputData[1]);
+        //console.log(outputData[1]);
         //console.log(outputData[1]);
         //id,idUser,dateReview, rate,description
         for (var i = 0; i < outputData[1].length; i++) {
@@ -190,9 +238,11 @@ starterApp.controller('InsideQuestionCtrl', function($ionicPopup, $scope, access
       template: msg
     });
     alertPopup.then(function(res) {
-      //$state.go('app.playlists');
-      //$scope.$parent.openModal(1);
-      //$state.go('app.single');
+      if(header=="THANKS 4 RATE!"){
+        $state.go('app.playlists');
+        $scope.$parent.reloadFunction();
+        //location.reload();
+      }
     });
   };
 

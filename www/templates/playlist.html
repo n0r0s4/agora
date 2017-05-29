@@ -78,6 +78,27 @@
       <strong>Author: {{answer.nickname}}</strong>
       <strong style="color:teal;">Total Score: {{answer.totalvaloration}}</strong><i class="icon ion-star"></i>
       <small style="float:right;">{{answer.dateIn}}</small>
+      <div ng-show="$parent.theuser.nickname!='anonymous'">
+        <h2 ng-if="answer.rated">You already rated this answer!</h2>
+        <div ng-show="!answer.rated">
+
+        <form style="margin: auto;" name="formanswerrate" novalidate>
+          <br/>
+            <strong style="color:teal;">Rate this answer</strong><br/>
+          <label class="item item-input">
+        <select class="" name="rateanswer" ng-model="$parent.$parent.torateanswer">
+          <option value="rateme">Rateme!</option>
+          <option value="1">Nothing interesting</option>
+          <option value="2">Maybe some day i will read it</option>
+          <option value="3">Interesting</option>
+          <option value="4">Usefull</option>
+          <option value="5">This answer saved my life</option>
+        </select><br/>
+      </label>
+        <button class="button button-block button-calm" ng-click="doRateAnswer(answer)" ng-disabled="torateanswer=='rateme'" type="submit">Rate!</button>
+      </form>
+        </div>
+      </div>
     </div>
     </div>
   </ion-content>
