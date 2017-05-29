@@ -119,6 +119,7 @@ starterApp.controller('PlaylistsCtrl', function($scope, accessService, $statePar
     }
 
       $scope.loadTopics = function (){
+        $scope.topics=[];
         //Server conenction to verify user's data
         var promise = accessService.getData("php/controllers/MainController.php",
         true, "POST", {controllerType: 7, action: 10000, jsonData: ""});
